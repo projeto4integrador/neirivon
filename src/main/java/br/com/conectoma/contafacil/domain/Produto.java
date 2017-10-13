@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "web_produto")
 public class Produto implements Serializable {
@@ -42,6 +44,7 @@ public class Produto implements Serializable {
 	//@OneToMany(mappedBy = "id.produto")
 	//private List<ItemPedido> itens = new ArrayList<>();
 	
+	@JsonBackReference //Do outro lado associação já foram buscados os objetos
 	@ManyToMany
 	@JoinTable(name="web_produto_categoria",
 		joinColumns = @JoinColumn(name="produto_id"),
