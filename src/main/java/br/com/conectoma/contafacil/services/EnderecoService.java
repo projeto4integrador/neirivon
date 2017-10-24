@@ -4,22 +4,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.conectoma.contafacil.domain.Endereco;
-import br.com.conectoma.contafacil.domain.PreparoCozinha;
 import br.com.conectoma.contafacil.repositories.EnderecoRepository;
-import br.com.conectoma.contafacil.repositories.PreparoCozinhaRepository;
 import br.com.conectoma.contafacil.services.exceptions.ObjectNotFoundException;
 
 @Service
-public class PreparoCozinhaService {
+public class EnderecoService {
 	
 	@Autowired
-	private PreparoCozinhaRepository repo;
+	private EnderecoRepository repo;
 	
-	public PreparoCozinha buscar(Long id) {
-		PreparoCozinha obj = repo.findOne(id);
+	public Endereco buscar(Long id) {
+		Endereco obj = repo.findOne(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id 
-					+ ", Tipo: " + PreparoCozinha.class.getName());
+					+ ", Tipo: " + Endereco.class.getName());
 		}
 		return obj;
 	}
