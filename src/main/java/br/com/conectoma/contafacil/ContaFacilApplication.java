@@ -9,11 +9,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import br.com.conectoma.contafacil.domain.Categoria;
 import br.com.conectoma.contafacil.domain.Cidade;
+import br.com.conectoma.contafacil.domain.Cliente;
+import br.com.conectoma.contafacil.domain.Endereco;
 import br.com.conectoma.contafacil.domain.Estado;
 import br.com.conectoma.contafacil.domain.PreparoCozinha;
 import br.com.conectoma.contafacil.domain.Produto;
+import br.com.conectoma.contafacil.domain.enums.TipoCliente;
 import br.com.conectoma.contafacil.repositories.CategoriaRepository;
 import br.com.conectoma.contafacil.repositories.CidadeRepository;
+import br.com.conectoma.contafacil.repositories.ClienteRepository;
+import br.com.conectoma.contafacil.repositories.EnderecoRepository;
 import br.com.conectoma.contafacil.repositories.EstadoRepository;
 import br.com.conectoma.contafacil.repositories.PreparoCozinhaRepository;
 import br.com.conectoma.contafacil.repositories.ProdutoRepository;
@@ -31,6 +36,10 @@ public class ContaFacilApplication implements CommandLineRunner {
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private CidadeRepository cidadeRepository;
+	@Autowired
+	private ClienteRepository clienteRepository;
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	
 	public static void main(String[] args) {
@@ -75,6 +84,17 @@ public class ContaFacilApplication implements CommandLineRunner {
 		
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1, c2, c3));
+		
+		Cliente cli1 = new Cliente(null, "Neirivon Elias Cardoso", "neirivon@gmail.com", "80761917691", TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("34.99674-5385","34.3222-1446"));
+		
+		Endereco e1 = new Endereco(null, "Rua Maria Osória de Jesus", "138", "Casa", "São Jorge", "38410-198", cli1,c1);
+		Endereco e2 = new Endereco(null, "Praça Nicolau Feres", "1227", "Apartamento", "Martins", "38410-111", cli1,c2);
+		
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		
+		clienteRepository.save(Arrays.asList(cli1));
+		enderecoRepository.save(Arrays.asList(e1, e2));
 		
 	}
 }
