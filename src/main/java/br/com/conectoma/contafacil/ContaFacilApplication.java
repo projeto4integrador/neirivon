@@ -13,6 +13,7 @@ import br.com.conectoma.contafacil.domain.Cidade;
 import br.com.conectoma.contafacil.domain.Cliente;
 import br.com.conectoma.contafacil.domain.Endereco;
 import br.com.conectoma.contafacil.domain.Estado;
+import br.com.conectoma.contafacil.domain.ItemPedido;
 import br.com.conectoma.contafacil.domain.Pagamento;
 import br.com.conectoma.contafacil.domain.PagamentoComBoleto;
 import br.com.conectoma.contafacil.domain.PagamentoComCartao;
@@ -26,6 +27,7 @@ import br.com.conectoma.contafacil.repositories.CidadeRepository;
 import br.com.conectoma.contafacil.repositories.ClienteRepository;
 import br.com.conectoma.contafacil.repositories.EnderecoRepository;
 import br.com.conectoma.contafacil.repositories.EstadoRepository;
+import br.com.conectoma.contafacil.repositories.ItemPedidoRepository;
 import br.com.conectoma.contafacil.repositories.PagamentoRepository;
 import br.com.conectoma.contafacil.repositories.PedidoRepository;
 import br.com.conectoma.contafacil.repositories.PreparoCozinhaRepository;
@@ -52,6 +54,8 @@ public class ContaFacilApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	
 	
@@ -125,6 +129,20 @@ public class ContaFacilApplication implements CommandLineRunner {
 		
 		pedidoRepository.save(Arrays.asList(ped1, ped2));
 		pagamentoRepository.save(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.0, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().addAll(Arrays.asList(ip3));
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p2.getItens().addAll(Arrays.asList(ip3));
+		p3.getItens().addAll(Arrays.asList(ip2));
+		
+		itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));
+		
 		
 	}
 }
