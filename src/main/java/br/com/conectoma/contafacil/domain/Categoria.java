@@ -13,8 +13,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 @Table(name = "web_categoria")
 public class Categoria implements Serializable {
@@ -29,7 +27,6 @@ public class Categoria implements Serializable {
 	@Column(name = "descricao")
 	private String descricao;
 
-	@JsonManagedReference
 	@ManyToMany(mappedBy="categorias")
 		//private List<Adicional> adicionais = new ArrayList<>();
 
