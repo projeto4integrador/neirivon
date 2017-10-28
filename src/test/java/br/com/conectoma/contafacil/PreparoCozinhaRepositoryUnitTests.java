@@ -3,6 +3,9 @@ package br.com.conectoma.contafacil;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
+import java.util.List;
+
+import javax.validation.ConstraintViolationException;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Rule;
@@ -18,6 +21,7 @@ import br.com.conectoma.contafacil.repositories.PreparoCozinhaRepository;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PreparoCozinhaRepositoryUnitTests {
 	
 	@Autowired
@@ -26,7 +30,7 @@ public class PreparoCozinhaRepositoryUnitTests {
 	public ExpectedException thrown = ExpectedException.none();
 	
 	@Test
-	public void createShouldPersisteData() {
+	public void createShouldPersistData() {
 		
 		PreparoCozinha pc1 = new PreparoCozinha(null, "Sem coentro", "18:00", true);
 		PreparoCozinha pc2 = new PreparoCozinha(null, "Sem coentro", "18:00", true);
@@ -69,5 +73,27 @@ public class PreparoCozinhaRepositoryUnitTests {
 		
 	}
 	
+	
+	@Test
+	public void findByObservacaoIgnoreCaseContainingShouldIgnoreCase() {
+		
+		PreparoCozinha pc1 = new PreparoCozinha(null, "COMO milho e batata", "19:00", false);
+		PreparoCozinha pc2 = new PreparoCozinha(null, "como milho e batata", "19:10", true);
+		this.preparoCozinhaRepository.save(pc1);
+		this.preparoCozinhaRepository.save(pc2);
+		
+		List<PreparoCozinha> preparoCozinhaList = preparoCozinhaRepository.findByObservacaoIgnoreCaseContaining("como milho e batata");
+		
+		assertThat(preparoCozinhaList.size()).isEqualTo(2);
+	}
+	
+	@Test
+	public void createWhenHoraIsNullShouldThrowConstraintViolationException() {
+		
+		thrown.expect(ConstraintViolationException.class);
+		thrown.expectMessage("O hora campo não pode ser vazio");
+		
+		this.preparoCozinhaRepository.save(new PreparoCozinha());
+	}
 
 }

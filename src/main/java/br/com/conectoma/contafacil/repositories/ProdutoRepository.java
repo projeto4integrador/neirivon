@@ -8,4 +8,5 @@ import br.com.conectoma.contafacil.domain.Produto;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
+
 }

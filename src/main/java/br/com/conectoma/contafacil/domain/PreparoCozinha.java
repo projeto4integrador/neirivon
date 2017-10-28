@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @Entity
 @Table(name = "web_preparo_cozinha")
 public class PreparoCozinha implements Serializable {
@@ -17,6 +19,7 @@ public class PreparoCozinha implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String observacao;
+	@NotEmpty(message = "O hora campo não pode ser vazio")
 	private String hora;
 	private Boolean estado;
 	
