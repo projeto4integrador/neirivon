@@ -20,6 +20,7 @@ import br.com.conectoma.contafacil.domain.PagamentoComCartao;
 import br.com.conectoma.contafacil.domain.Pedido;
 import br.com.conectoma.contafacil.domain.PreparoCozinha;
 import br.com.conectoma.contafacil.domain.Produto;
+import br.com.conectoma.contafacil.domain.Usuario;
 import br.com.conectoma.contafacil.domain.enums.EstadoPagamento;
 import br.com.conectoma.contafacil.domain.enums.TipoCliente;
 import br.com.conectoma.contafacil.repositories.CategoriaRepository;
@@ -32,6 +33,7 @@ import br.com.conectoma.contafacil.repositories.PagamentoRepository;
 import br.com.conectoma.contafacil.repositories.PedidoRepository;
 import br.com.conectoma.contafacil.repositories.PreparoCozinhaRepository;
 import br.com.conectoma.contafacil.repositories.ProdutoRepository;
+import br.com.conectoma.contafacil.repositories.UsuarioRepository;
 
 @SpringBootApplication
 public class ContaFacilApplication implements CommandLineRunner {
@@ -56,7 +58,8 @@ public class ContaFacilApplication implements CommandLineRunner {
 	private PagamentoRepository pagamentoRepository;
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
-	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	
 	public static void main(String[] args) {
@@ -105,19 +108,24 @@ public class ContaFacilApplication implements CommandLineRunner {
 		Cliente cli1 = new Cliente(null, "Neirivon Elias Cardoso", "neirivon@gmail.com", "80761917691", TipoCliente.PESSOAFISICA);
 		cli1.getTelefones().addAll(Arrays.asList("34.99674-5385","34.3222-1446"));
 		
+		Usuario usu1 = new Usuario(null, "Neirivon Elias Cardoso", "neirivon", "password");
+		
 		Endereco e1 = new Endereco(null, "Rua Maria Osória de Jesus", "138", "Casa", "São Jorge", "38410-198", cli1,c1);
 		Endereco e2 = new Endereco(null, "Praça Nicolau Feres", "1227", "Apartamento", "Martins", "38410-111", cli1,c2);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
 		
+		usuarioRepository.save(Arrays.asList(usu1));
 		clienteRepository.save(Arrays.asList(cli1));
 		enderecoRepository.save(Arrays.asList(e1, e2));
+		
+		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		
 		
-		Pedido ped1 = new Pedido(null, sdf.parse("16/01/2012 22:01"), cli1, e1);
-		Pedido ped2 = new Pedido(null, sdf.parse("17/01/2012 18:01"), cli1, e2);
+		Pedido ped1 = new Pedido(null, sdf.parse("16/01/2012 22:01"), cli1,usu1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("17/01/2012 18:01"), cli1, usu1, e2);
 		
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);
