@@ -13,7 +13,7 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repo;
 	
-	public Usuario buscar(Long id) {
+	public Usuario find(Long id) {
 		Usuario obj = repo.findOne(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id 

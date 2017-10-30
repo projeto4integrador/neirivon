@@ -18,8 +18,8 @@ public class PreparoCozinhaResource {
 	private PreparoCozinhaService service;
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Long id) {
-		PreparoCozinha obj = service.buscar(id);
+	public ResponseEntity<PreparoCozinha> find(@PathVariable Long id) {
+		PreparoCozinha obj = service.find(id);
 		
 		return ResponseEntity.ok().body(obj);
 		

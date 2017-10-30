@@ -15,7 +15,7 @@ public class PreparoCozinhaService {
 	@Autowired
 	private PreparoCozinhaRepository repo;
 	
-	public PreparoCozinha buscar(Long id) {
+	public PreparoCozinha find(Long id) {
 		PreparoCozinha obj = repo.findOne(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id 

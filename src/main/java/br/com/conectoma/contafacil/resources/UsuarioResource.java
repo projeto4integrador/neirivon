@@ -21,8 +21,8 @@ public class UsuarioResource {
 
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Long id) {
-		Usuario obj = service.buscar(id);
+	public ResponseEntity<Usuario> find(@PathVariable Long id) {
+		Usuario obj = service.find(id);
 		
 		return ResponseEntity.ok().body(obj);
 		
