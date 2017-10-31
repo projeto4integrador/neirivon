@@ -1,10 +1,12 @@
 package br.com.conectoma.contafacil.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.com.conectoma.contafacil.domain.Categoria;
 import br.com.conectoma.contafacil.repositories.CategoriaRepository;
+import br.com.conectoma.contafacil.services.exceptions.DataIntegrityException;
 import br.com.conectoma.contafacil.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -31,6 +33,19 @@ public class CategoriaService {
 
 		find(obj.getId());
 		return repo.save(obj);
+		
+	}
+	
+	public void delete(Long id) {
+		
+		find(id); //Caso o id não exista dispara uma exceção
+		
+		try {
+			repo.delete(id);
+		} 
+		catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma Categoria que possui Produtos!");
+		}
 		
 	}
 
