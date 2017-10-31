@@ -75,6 +75,15 @@ public class ContaFacilApplication implements CommandLineRunner {
 		
 		Categoria cat1 = new Categoria(null, "Bebida");
 		Categoria cat2 = new Categoria(null, "Sanduiche");
+		Categoria cat3 = new Categoria(null, "Balas e doces");
+		Categoria cat4 = new Categoria(null, "Porções");
+		Categoria cat5 = new Categoria(null, "Salgados");
+		Categoria cat6 = new Categoria(null, "Jantinha");
+		Categoria cat7 = new Categoria(null, "Marmitex");
+		Categoria cat8 = new Categoria(null, "Sobremesa");
+		Categoria cat9 = new Categoria(null, "Sortidos");
+		Categoria cat10 = new Categoria(null, "Sorvete");
+		Categoria cat11 = new Categoria(null, "Tempero");
 		
 		Produto p1 = new Produto(null, "Refrigerante", 3.00, 1);
 		Produto p2 = new Produto(null, "Pao", 1.00, 1);
@@ -89,7 +98,7 @@ public class ContaFacilApplication implements CommandLineRunner {
 		
 		
 		preparoCozinhaRepository.save(Arrays.asList(pc1, pc2, pc3));
-		categoriaRepository.save(Arrays.asList(cat1, cat2));
+		categoriaRepository.save(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7, cat8, cat9, cat10, cat11));
 		produtoRepository.save(Arrays.asList(p1, p2, p3));
 		
 		Estado est1 = new Estado(null, "Minas Gerais");
