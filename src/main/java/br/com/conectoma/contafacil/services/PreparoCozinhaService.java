@@ -3,9 +3,7 @@ package br.com.conectoma.contafacil.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.conectoma.contafacil.domain.Endereco;
 import br.com.conectoma.contafacil.domain.PreparoCozinha;
-import br.com.conectoma.contafacil.repositories.EnderecoRepository;
 import br.com.conectoma.contafacil.repositories.PreparoCozinhaRepository;
 import br.com.conectoma.contafacil.services.exceptions.ObjectNotFoundException;
 
