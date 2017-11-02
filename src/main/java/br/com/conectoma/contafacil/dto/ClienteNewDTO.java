@@ -2,22 +2,39 @@ package br.com.conectoma.contafacil.dto;
 
 import java.io.Serializable;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import br.com.conectoma.contafacil.services.validation.ClienteInsert;
+
+//Anotação customizada
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	//Dados do Cliente
+	@NotEmpty(message = "O Campo NOME é de preenchimento obrigatório")
+	@Length(min=5,max=120,message="O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
+	@NotEmpty(message = "O Campo EMAIL é de preenchimento obrigatório")
+	@Email(message = "Email inválido!")
 	private String email;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
 	//Dados do endereço
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String logradouro;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String numero;
 	private String complemento;
 	private String bairro;
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String cep;
 	
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
