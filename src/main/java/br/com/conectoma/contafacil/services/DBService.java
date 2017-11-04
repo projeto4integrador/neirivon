@@ -22,6 +22,7 @@ import br.com.conectoma.contafacil.domain.PreparoCozinha;
 import br.com.conectoma.contafacil.domain.Produto;
 import br.com.conectoma.contafacil.domain.Usuario;
 import br.com.conectoma.contafacil.domain.enums.EstadoPagamento;
+import br.com.conectoma.contafacil.domain.enums.Perfil;
 import br.com.conectoma.contafacil.domain.enums.TipoCliente;
 import br.com.conectoma.contafacil.repositories.CategoriaRepository;
 import br.com.conectoma.contafacil.repositories.CidadeRepository;
@@ -135,16 +136,22 @@ public class DBService {
 		Cliente cli1 = new Cliente(null, "Neirivon Elias Cardoso", "neirivon@gmail.com", "80761917691", TipoCliente.PESSOAFISICA, pe.encode("jedi"));
 		cli1.getTelefones().addAll(Arrays.asList("34.99674-5385","34.3222-1446"));
 		
+		Cliente cli2 = new Cliente(null, "Obi Wan Kenobi", "neirivon@hotmail.com", "97467393288", TipoCliente.PESSOAFISICA, pe.encode("jedi"));
+		cli2.addPerfil(Perfil.ADMIN);
+		cli2.getTelefones().addAll(Arrays.asList("34.7899-5455","34.3666-7666"));
+		
 		Usuario usu1 = new Usuario(null, "Neirivon Elias Cardoso", "neirivon", "password");
 		
 		Endereco e1 = new Endereco(null, "Rua Maria Osória de Jesus", "138", "Casa", "São Jorge", "38410-198", cli1,c1);
 		Endereco e2 = new Endereco(null, "Praça Nicolau Feres", "1227", "Apartamento", "Martins", "38410-111", cli1,c2);
+		Endereco e3 = new Endereco(null, "Avenida Floriano Peixoto", "31", "Apartamento", "Centro", "38410-111", cli2,c1);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
 		
 		usuarioRepository.save(Arrays.asList(usu1));
-		clienteRepository.save(Arrays.asList(cli1));
-		enderecoRepository.save(Arrays.asList(e1, e2));
+		clienteRepository.save(Arrays.asList(cli1, cli2));
+		enderecoRepository.save(Arrays.asList(e1, e2, e3));
 		
 		
 		
