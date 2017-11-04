@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.conectoma.contafacil.domain.Categoria;
@@ -36,6 +37,9 @@ import br.com.conectoma.contafacil.repositories.UsuarioRepository;
 
 @Service
 public class DBService {
+	
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
 	private PreparoCozinhaRepository preparoCozinhaRepository;
@@ -128,7 +132,7 @@ public class DBService {
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1, c2, c3));
 		
-		Cliente cli1 = new Cliente(null, "Neirivon Elias Cardoso", "neirivon@gmail.com", "80761917691", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Neirivon Elias Cardoso", "neirivon@gmail.com", "80761917691", TipoCliente.PESSOAFISICA, pe.encode("jedi"));
 		cli1.getTelefones().addAll(Arrays.asList("34.99674-5385","34.3222-1446"));
 		
 		Usuario usu1 = new Usuario(null, "Neirivon Elias Cardoso", "neirivon", "password");
