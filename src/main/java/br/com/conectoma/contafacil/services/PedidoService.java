@@ -9,6 +9,7 @@ import br.com.conectoma.contafacil.domain.ItemPedido;
 import br.com.conectoma.contafacil.domain.PagamentoComBoleto;
 import br.com.conectoma.contafacil.domain.Pedido;
 import br.com.conectoma.contafacil.domain.enums.EstadoPagamento;
+import br.com.conectoma.contafacil.repositories.ClienteRepository;
 import br.com.conectoma.contafacil.repositories.ItemPedidoRepository;
 import br.com.conectoma.contafacil.repositories.PagamentoRepository;
 import br.com.conectoma.contafacil.repositories.PedidoRepository;
@@ -33,6 +34,9 @@ public class PedidoService {
 	@Autowired
 	private ItemPedidoRepository itemPedidoRepository;
 	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
 	public Pedido find(Long id) {
 		Pedido obj = repo.findOne(id);
 		if(obj == null) {
@@ -45,6 +49,8 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null);
 		obj.setInstante(new Date());
+		obj.setCliente(clienteRepository.findOne(obj.getCliente().getId()));
+		
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj);
 		if (obj.getPagamento() instanceof PagamentoComBoleto) {
@@ -55,10 +61,12 @@ public class PedidoService {
 		pagamentoRepository.save(obj.getPagamento());
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setPreco(produtoRepository.findOne(ip.getProduto().getId()).getValor());
+			ip.setProduto(produtoRepository.findOne(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getValor());
 			ip.setPedido(obj);
 		}
 		itemPedidoRepository.save(obj.getItens());
+		System.out.println(obj);
 		return obj;
 	}
 
