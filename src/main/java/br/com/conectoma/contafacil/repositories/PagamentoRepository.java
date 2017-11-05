@@ -9,5 +9,7 @@ import br.com.conectoma.contafacil.domain.Pagamento;
 
 @Repository
 public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
+	
+	
 
 }
