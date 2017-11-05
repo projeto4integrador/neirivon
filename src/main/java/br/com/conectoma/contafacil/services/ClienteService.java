@@ -13,12 +13,15 @@ import org.springframework.stereotype.Service;
 import br.com.conectoma.contafacil.domain.Cidade;
 import br.com.conectoma.contafacil.domain.Cliente;
 import br.com.conectoma.contafacil.domain.Endereco;
+import br.com.conectoma.contafacil.domain.enums.Perfil;
 import br.com.conectoma.contafacil.domain.enums.TipoCliente;
 import br.com.conectoma.contafacil.dto.ClienteDTO;
 import br.com.conectoma.contafacil.dto.ClienteNewDTO;
 import br.com.conectoma.contafacil.repositories.CidadeRepository;
 import br.com.conectoma.contafacil.repositories.ClienteRepository;
 import br.com.conectoma.contafacil.repositories.EnderecoRepository;
+import br.com.conectoma.contafacil.security.UserSS;
+import br.com.conectoma.contafacil.services.exceptions.AuthorizationException;
 import br.com.conectoma.contafacil.services.exceptions.DataIntegrityException;
 import br.com.conectoma.contafacil.services.exceptions.ObjectNotFoundException;
 
@@ -38,6 +41,12 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Long id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user==null || !user.hasHole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Cliente obj = repo.findOne(id);
 		if(obj == null) {
 			throw new ObjectNotFoundException("Objeto não encontrado! Id: " + id 
