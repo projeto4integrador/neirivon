@@ -14,6 +14,7 @@ import br.com.conectoma.contafacil.domain.Cliente;
 import br.com.conectoma.contafacil.domain.Endereco;
 import br.com.conectoma.contafacil.domain.Estado;
 import br.com.conectoma.contafacil.domain.ItemPedido;
+import br.com.conectoma.contafacil.domain.Mesa;
 import br.com.conectoma.contafacil.domain.Pagamento;
 import br.com.conectoma.contafacil.domain.PagamentoComBoleto;
 import br.com.conectoma.contafacil.domain.PagamentoComCartao;
@@ -24,12 +25,14 @@ import br.com.conectoma.contafacil.domain.Usuario;
 import br.com.conectoma.contafacil.domain.enums.EstadoPagamento;
 import br.com.conectoma.contafacil.domain.enums.Perfil;
 import br.com.conectoma.contafacil.domain.enums.TipoCliente;
+import br.com.conectoma.contafacil.enums.StatusMesa;
 import br.com.conectoma.contafacil.repositories.CategoriaRepository;
 import br.com.conectoma.contafacil.repositories.CidadeRepository;
 import br.com.conectoma.contafacil.repositories.ClienteRepository;
 import br.com.conectoma.contafacil.repositories.EnderecoRepository;
 import br.com.conectoma.contafacil.repositories.EstadoRepository;
 import br.com.conectoma.contafacil.repositories.ItemPedidoRepository;
+import br.com.conectoma.contafacil.repositories.MesaRepository;
 import br.com.conectoma.contafacil.repositories.PagamentoRepository;
 import br.com.conectoma.contafacil.repositories.PedidoRepository;
 import br.com.conectoma.contafacil.repositories.PreparoCozinhaRepository;
@@ -64,6 +67,8 @@ public class DBService {
 	private ItemPedidoRepository itemPedidoRepository;
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	@Autowired 
+	private MesaRepository mesaRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -142,6 +147,9 @@ public class DBService {
 		
 		Usuario usu1 = new Usuario(null, "Neirivon Elias Cardoso", "neirivon", "password");
 		
+		Mesa m1 = new Mesa(null, "01", StatusMesa.DISPONIVEL);
+		Mesa m2 = new Mesa(null, "02", StatusMesa.DISPONIVEL);
+		
 		Endereco e1 = new Endereco(null, "Rua Maria Osória de Jesus", "138", "Casa", "São Jorge", "38410-198", cli1,c1);
 		Endereco e2 = new Endereco(null, "Praça Nicolau Feres", "1227", "Apartamento", "Martins", "38410-111", cli1,c2);
 		Endereco e3 = new Endereco(null, "Avenida Floriano Peixoto", "31", "Apartamento", "Centro", "38410-111", cli2,c1);
@@ -151,6 +159,7 @@ public class DBService {
 		
 		usuarioRepository.save(Arrays.asList(usu1));
 		clienteRepository.save(Arrays.asList(cli1, cli2));
+		mesaRepository.save(Arrays.asList(m1, m2));
 		enderecoRepository.save(Arrays.asList(e1, e2, e3));
 		
 		
@@ -158,8 +167,8 @@ public class DBService {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		
 		
-		Pedido ped1 = new Pedido(null, sdf.parse("16/01/2012 22:01"), cli1,usu1, e1);
-		Pedido ped2 = new Pedido(null, sdf.parse("17/01/2012 18:01"), cli1, usu1, e2);
+		Pedido ped1 = new Pedido(null, sdf.parse("16/01/2012 22:01"), cli1,usu1, m1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("17/01/2012 18:01"), cli1, usu1, m2, e2);
 		
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);

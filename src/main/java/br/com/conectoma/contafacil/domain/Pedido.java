@@ -49,6 +49,10 @@ public class Pedido implements Serializable {
 	private Usuario usuario;
 	
 	@ManyToOne
+	@JoinColumn(name="mesa_id")
+	private Mesa mesa;
+	
+	@ManyToOne
 	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 	
@@ -59,12 +63,13 @@ public class Pedido implements Serializable {
 		
 	}
 
-	public Pedido(Long id, Date instante, Cliente cliente, Usuario usuario, Endereco enderecoDeEntrega) {
+	public Pedido(Long id, Date instante, Cliente cliente, Usuario usuario, Mesa mesa, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.cliente = cliente;
 		this.usuario = usuario;
+		this.mesa = mesa;
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 	
@@ -114,6 +119,14 @@ public class Pedido implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Mesa getMesa() {
+		return mesa;
+	}
+
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
 	}
 
 	public Endereco getEnderecoDeEntrega() {
@@ -169,6 +182,8 @@ public class Pedido implements Serializable {
 		builder.append(sdf.format(getInstante()));
 		builder.append(", Cliente: ");
 		builder.append(getCliente().getNome());
+		builder.append(", Mesa: ");
+		builder.append(getMesa().getNumero());
 		builder.append(", Situação do Pagamento: ");
 		builder.append(getPagamento().getEstado().getDescricao());
 		builder.append("\nDetalhes\n");
