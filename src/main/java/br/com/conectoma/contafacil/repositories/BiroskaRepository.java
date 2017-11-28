@@ -5,13 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import br.com.conectoma.contafacil.domain.Biroska;
 import br.com.conectoma.contafacil.domain.Usuario;
 
 @Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-	
-	 // Não levar em consideração a caixa (maiuscula ou minuscula)
-	List<Usuario> findByEmailIgnoreCaseContaining(String email);
+public interface BiroskaRepository extends JpaRepository<Biroska, Long> {
 
-
+	List<Biroska> findByNomeIgnoreCaseContaining(String nome);
 }

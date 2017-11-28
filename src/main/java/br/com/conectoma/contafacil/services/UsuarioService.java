@@ -22,10 +22,10 @@ public class UsuarioService {
 		return obj;
 	}
 	
-	public Usuario findAll(String usuario) {
+	public Usuario findAll(String email) {
 		Usuario obj = (Usuario) repo.findAll();
 		if(obj == null) {
-			throw new ObjectNotFoundException("Objeto não encontrado! Usuario: " + usuario 
+			throw new ObjectNotFoundException("Objeto não encontrado! Usuario: " + email 
 					+ ", Tipo: " + Usuario.class.getName());
 		}
 		return obj;

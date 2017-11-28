@@ -59,15 +59,20 @@ public class Pedido implements Serializable {
 	@OneToMany(mappedBy="id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
+	@ManyToOne
+	@JoinColumn(name="biroska_id")
+	private Biroska biroska;
+	
 	public Pedido() {
 		
 	}
 
-	public Pedido(Long id, Date instante, Cliente cliente, Usuario usuario, Mesa mesa, Endereco enderecoDeEntrega) {
+	public Pedido(Long id, Date instante, Biroska biroska, Cliente cliente, Usuario usuario, Mesa mesa, Endereco enderecoDeEntrega) {
 		super();
 		this.id = id;
 		this.instante = instante;
 		this.cliente = cliente;
+		this.biroska = biroska;
 		this.usuario = usuario;
 		this.mesa = mesa;
 		this.enderecoDeEntrega = enderecoDeEntrega;
@@ -103,6 +108,14 @@ public class Pedido implements Serializable {
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+
+	public Biroska getBiroska() {
+		return biroska;
+	}
+
+	public void setBiroska(Biroska biroska) {
+		this.biroska = biroska;
 	}
 
 	public Cliente getCliente() {
@@ -180,6 +193,8 @@ public class Pedido implements Serializable {
 		builder.append(getId());
 		builder.append(", Instante: ");
 		builder.append(sdf.format(getInstante()));
+		builder.append(", Biroska: ");
+		builder.append(getBiroska().getNome());
 		builder.append(", Cliente: ");
 		builder.append(getCliente().getNome());
 		builder.append(", Mesa: ");

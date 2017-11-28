@@ -15,8 +15,8 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "web_usuario")
-public class Usuario implements Serializable {
+@Table(name = "web_biroska")
+public class Biroska implements Serializable {
 	private static final long serialVersionUID=1L;
 
 	@Id
@@ -27,25 +27,29 @@ public class Usuario implements Serializable {
 	private String nome;
 	
 	@NotNull
-	private String email;
+	private Double latitude;
 	
 	@NotNull
-	private String senha;
+	private Double longitude;
+	
+	@NotNull
+	private String img_url;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="usuario")
+	@OneToMany(mappedBy="biroska")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
-	public Usuario() {
+	public Biroska() {
 		
 	}
 
-	public Usuario(Long id, String nome, String email, String senha) {
+	public Biroska(Long id, String nome, Double latitude, Double longitude, String img_url) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.email = email;
-		this.senha = senha;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.img_url = img_url;
 	}
 
 	public Long getId() {
@@ -64,22 +68,30 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getEmail() {
-		return email;
+	public Double getLatitude() {
+		return latitude;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setLatitude(Double latitude) {
+		this.latitude = latitude;
 	}
 
-	public String getSenha() {
-		return senha;
+	public Double getLongitude() {
+		return longitude;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setLongitude(Double longitude) {
+		this.longitude = longitude;
 	}
 	
+	public String getImg_url() {
+		return img_url;
+	}
+
+	public void setImg_url(String img_url) {
+		this.img_url = img_url;
+	}
+
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
@@ -104,7 +116,7 @@ public class Usuario implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Biroska other = (Biroska) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -112,5 +124,4 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
-	
 }

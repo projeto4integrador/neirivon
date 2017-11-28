@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.conectoma.contafacil.domain.Biroska;
 import br.com.conectoma.contafacil.domain.Categoria;
 import br.com.conectoma.contafacil.domain.Cidade;
 import br.com.conectoma.contafacil.domain.Cliente;
@@ -26,6 +27,7 @@ import br.com.conectoma.contafacil.domain.enums.EstadoPagamento;
 import br.com.conectoma.contafacil.domain.enums.Perfil;
 import br.com.conectoma.contafacil.domain.enums.TipoCliente;
 import br.com.conectoma.contafacil.enums.StatusMesa;
+import br.com.conectoma.contafacil.repositories.BiroskaRepository;
 import br.com.conectoma.contafacil.repositories.CategoriaRepository;
 import br.com.conectoma.contafacil.repositories.CidadeRepository;
 import br.com.conectoma.contafacil.repositories.ClienteRepository;
@@ -69,6 +71,8 @@ public class DBService {
 	private UsuarioRepository usuarioRepository;
 	@Autowired 
 	private MesaRepository mesaRepository;
+	@Autowired
+	private BiroskaRepository biroskaRepository;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		
@@ -138,6 +142,9 @@ public class DBService {
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1, c2, c3));
 		
+		Biroska bar1 = new Biroska(null, "Sanduicheria São Jorge", 40.366633, 74.640832, "sanduicheriaSaoJorge.jpg");
+		Biroska bar2 = new Biroska(null, "Lanchonete Seo Jorge", 42.443087, 76.488707, "LanchoneteSeoJorge.jpg");
+		
 		Cliente cli1 = new Cliente(null, "Neirivon Elias Cardoso", "neirivon@gmail.com", "80761917691", TipoCliente.PESSOAFISICA, pe.encode("jedi"));
 		cli1.getTelefones().addAll(Arrays.asList("34.99674-5385","34.3222-1446"));
 		
@@ -145,7 +152,7 @@ public class DBService {
 		cli2.addPerfil(Perfil.ADMIN);
 		cli2.getTelefones().addAll(Arrays.asList("34.7899-5455","34.3666-7666"));
 		
-		Usuario usu1 = new Usuario(null, "Neirivon Elias Cardoso", "neirivon", "password");
+		Usuario usu1 = new Usuario(null, "Neirivon Elias Cardoso", "neirivon@gmail.com", "123456");
 		
 		Mesa m1 = new Mesa(null, "01", StatusMesa.DISPONIVEL);
 		Mesa m2 = new Mesa(null, "02", StatusMesa.DISPONIVEL);
@@ -158,6 +165,7 @@ public class DBService {
 		cli2.getEnderecos().addAll(Arrays.asList(e3));
 		
 		usuarioRepository.save(Arrays.asList(usu1));
+		biroskaRepository.save(Arrays.asList(bar1, bar2));
 		clienteRepository.save(Arrays.asList(cli1, cli2));
 		mesaRepository.save(Arrays.asList(m1, m2));
 		enderecoRepository.save(Arrays.asList(e1, e2, e3));
@@ -167,8 +175,8 @@ public class DBService {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 		
 		
-		Pedido ped1 = new Pedido(null, sdf.parse("16/01/2012 22:01"), cli1,usu1, m1, e1);
-		Pedido ped2 = new Pedido(null, sdf.parse("17/01/2012 18:01"), cli1, usu1, m2, e2);
+		Pedido ped1 = new Pedido(null, sdf.parse("16/01/2012 22:01"), bar1, cli1,usu1, m1, e1);
+		Pedido ped2 = new Pedido(null, sdf.parse("17/01/2012 18:01"), bar2, cli1, usu1, m2, e2);
 		
 		Pagamento pagto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pagto1);

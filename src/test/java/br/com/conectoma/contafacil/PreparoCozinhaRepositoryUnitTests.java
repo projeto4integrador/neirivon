@@ -91,7 +91,7 @@ public class PreparoCozinhaRepositoryUnitTests {
 	public void createWhenHoraIsNullShouldThrowConstraintViolationException() {
 		
 		thrown.expect(ConstraintViolationException.class);
-		thrown.expectMessage("O hora campo não pode ser vazio");
+		thrown.expectMessage("O campo hora não pode ser vazio");
 		
 		this.preparoCozinhaRepository.save(new PreparoCozinha());
 	}
