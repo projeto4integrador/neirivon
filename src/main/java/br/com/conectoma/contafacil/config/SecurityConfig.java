@@ -31,11 +31,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	private static final String[] PUBLIC_MATCHERS = { "/h2-console/**","/uploads/**" };
+	private static final String[] PUBLIC_MATCHERS = { 
+			"/h2-console/**",
+			"/uploads/**" };
 	
-	private static final String[] PUBLIC_MATCHERS_GET = {"/produtos/**", "/categorias/**","/mesas/**","/biroskas/**" };
+	private static final String[] PUBLIC_MATCHERS_GET = {
+			"/produtos/**", 
+			"/categorias/**",
+			"/mesas/**",
+			"/biroskas/**" };
 	
-	private static final String[] PUBLIC_MATCHERS_POST = {"/clientes/**", "/auth/forgot/**" };
+	private static final String[] PUBLIC_MATCHERS_POST = {
+			"/clientes", 
+			"/clientes/picture",
+			"/auth/forgot/**" };
 
 	@Autowired
 	private Environment env;
