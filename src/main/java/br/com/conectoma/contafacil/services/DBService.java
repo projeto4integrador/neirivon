@@ -93,14 +93,14 @@ public class DBService {
 		Categoria cat11 = new Categoria(null, "Tempero");
 		
 		Produto p1 = new Produto(null, "Refrigerante", 3.00, 1);
-		Produto p2 = new Produto(null, "Sanduiche bruto", 21.00, 1);
-		Produto p3 = new Produto(null, "Cerveja Skol Litrao", 5.00, 1);
-		Produto p4 = new Produto(null, "Porção de Batatinha", 5.00, 1);
+		Produto p2 = new Produto(null, "Pao", 1.00, 1);
+		Produto p3 = new Produto(null, "Cerveja", 5.00, 1);
+		Produto p4 = new Produto(null, "Batatinha", 5.00, 1);
 		Produto p5 = new Produto(null, "Arroz carreteiro", 5.00, 1);
-		Produto p6 = new Produto(null, "Marmitex com churrasco", 17.00, 1);
+		Produto p6 = new Produto(null, "Com Churrasco", 5.00, 1);
 		Produto p7 = new Produto(null, "Queijo com doce de leite", 5.00, 1);
 		Produto p8 = new Produto(null, "Kibon", 5.00, 1);
-		Produto p9 = new Produto(null, "Pastel de guariroba", 5.00, 1);
+		Produto p9 = new Produto(null, "Orégano", 5.00, 1);
 		Produto p10 = new Produto(null, "Coxinha", 5.00, 1);
 		Produto p11 = new Produto(null, "Filé de tilápia", 5.00, 1);
 		
@@ -142,8 +142,8 @@ public class DBService {
 		estadoRepository.save(Arrays.asList(est1, est2));
 		cidadeRepository.save(Arrays.asList(c1, c2, c3));
 		
-		Biroska bar1 = new Biroska(null, "Sanduicheria São Jorge", 18.9588555, 48.231682, "sanduicheriaSaoJorge.jpg");
-		Biroska bar2 = new Biroska(null, "Lanchonete Seo Jorge", 18.953276, 48.235141, "LanchoneteSeoJorge.jpg");
+		Biroska bar1 = new Biroska(null, "Sanduicheria São Jorge", 40.366633, 74.640832, "sanduicheriaSaoJorge.jpg");
+		Biroska bar2 = new Biroska(null, "Lanchonete Seo Jorge", 42.443087, 76.488707, "LanchoneteSeoJorge.jpg");
 		
 		Cliente cli1 = new Cliente(null, "Neirivon Elias Cardoso", "neirivon@gmail.com", "80761917691", TipoCliente.PESSOAFISICA, pe.encode("jedi"));
 		cli1.getTelefones().addAll(Arrays.asList("34.99674-5385","34.3222-1446"));
