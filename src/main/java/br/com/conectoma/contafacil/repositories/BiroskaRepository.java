@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.conectoma.contafacil.domain.Biroska;
-import br.com.conectoma.contafacil.domain.Usuario;
 
 @Repository
 public interface BiroskaRepository extends JpaRepository<Biroska, Long> {

@@ -36,14 +36,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/uploads/**" };
 	
 	private static final String[] PUBLIC_MATCHERS_GET = {
-			"/produtos/**", 
-			"/categorias/**",
-			"/mesas/**",
-			"/biroskas/**" };
+		"/produtos/**",
+		"/pedidos/**",
+		"/categorias/**",
+		"/mesas/**",
+		"/biroskas/**",
+		"/estados/**"
+	};
 	
 	private static final String[] PUBLIC_MATCHERS_POST = {
-			"/clientes/**", 
-			"/auth/forgot/**" };
+		"/clientes/**", 
+		"/auth/forgot/**" 
+	};
 
 	@Autowired
 	private Environment env;
@@ -77,8 +81,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+		corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
 		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+		source.registerCorsConfiguration("/**", corsConfiguration);
 		return source;
 	}
 

@@ -28,21 +28,21 @@ public class ProdutoService {
 
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
+
 	@Autowired
 	private S3Service s3Service;
-	
+
 	@Autowired
 	private ImageService imageService;
-	
+
 	@Value("${img.prefix.produto.item}")
 	private String prefix;
-	
+
 	@Value("${img.profile.size}")
 	private Integer size;
-	
+
 	private Long pId;
-	
+
 	public Produto find(Long id) {
 		Produto obj = repo.findOne(id);
 		if (obj == null) {
@@ -51,6 +51,11 @@ public class ProdutoService {
 		}
 		this.pId = obj.getId();
 		return obj;
+	}
+
+	public List<Produto> findAll() {
+
+		return repo.findAll();
 	}
 
 	public Page<Produto> search(String nome, List<Long> ids, Integer page, Integer linesPerPage, String orderBy,
@@ -79,7 +84,7 @@ public class ProdutoService {
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado");
 		}
-		
+
 		if (this.pId == null) {
 			throw new AuthorizationException("Id não pode ser null");
 		}
